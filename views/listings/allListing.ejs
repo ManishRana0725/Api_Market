@@ -1,7 +1,17 @@
 <% layout("layouts/boilerplate") %>
 <div class="container">
-    <h1>
-        all listing are present here as you can see
-    </h1>
+    <h1>All Listings Present</h1>
+    <% for (let listing of allListings) { %>
+        <div class="card-body">
+            <h5><%= listing.name %></h5>
+            <p>
+                <%= listing.pricing.free %> <br>  
+                <%= listing.rating %>
+            </p>
+            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+        <br>
+    <% } %>
 </div>
+
 
