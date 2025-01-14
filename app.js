@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const cookieParser = require("cookie-parser");
 require('dotenv').config();
 
 // Routes
@@ -26,14 +27,15 @@ app.use(express.static(path.join(__dirname, "/public")));
 app.use(methodOverride("_method"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cookieParser());
 // Routes
 app.use("/", homeRoutes); // Home page routes
 app.use("/apiListings", apiListingsRoutes); // API listings routes
-app.use("/api/users" , userRouter); // API user routes
+app.use("/api_market/users" , userRouter); // API user routes
 // Start the Server
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
 
