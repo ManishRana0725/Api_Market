@@ -85,6 +85,11 @@ const UserCtrl = {
             const accessToken = createAccessToken({ id: user._id, role: user.role });
             const refreshToken = createRefreshToken({ id: user._id, role: user.role });
 
+            res.cookie('refreshToken',refreshToken,{
+                httpOnly:true,
+                path:'/'
+            })
+            
             res.json({ accessToken, refreshToken });
         } catch (err) {
             return res.status(500).json({ msg: err.message });
