@@ -5,7 +5,7 @@ const auth = require('../middleware/auth'); // Middleware for protected routes
 
 // User Registration
 router.post('/register', UserCtrl.register);
-
+router.post('/refreshToken' , UserCtrl.refreshToken);
 // User Login
 router.post('/login', UserCtrl.login);
 
@@ -13,3 +13,4 @@ router.post('/login', UserCtrl.login);
 router.get('/profile', auth, UserCtrl.getUserDetails);
 
 module.exports = router;
+
