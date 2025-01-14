@@ -40,7 +40,7 @@ const UserCtrl = {
 
             res.cookie('refreshToken' , refreshToken,{
                 httpOnly:true,
-                path:"/users/refreshToken"
+                path:"/"
             })
             // Return the access token
             res.json({ accessToken, refreshToken });
