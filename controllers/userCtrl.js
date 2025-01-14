@@ -32,18 +32,38 @@ const UserCtrl = {
 
             // Save the user to the database
             await newUser.save();
-            res.send("user registered!")
-            // Create authentication tokens
+            //res.send("user registered!")
+
+            // Create jwt to authentication tokens
             const accessToken = createAccessToken({ id: newUser._id, role: newUser.role });
             const refreshToken = createRefreshToken({ id: newUser._id, role: newUser.role });
 
+            res.cookie('refreshToken' , refreshToken,{
+                httpOnly:true,
+                path:"/users/refreshToken"
+            })
             // Return the access token
             res.json({ accessToken, refreshToken });
         } catch (err) {
             return res.status(500).json({ msg: err.message });
         }
     },
+    refreshToken:async(req , res)=>{
+        try{
+            const rf_token = req.cookies.refreshToken;
+            // res.json({rf_token})
 
+            if(!rf_token)return res.status(400).json({msg:"Please login and Registers"});
+            jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET,(err,user)=>{
+                if(err)return res.status(400).json({msg:"Please login and Register"})
+                const accessToken = createAccessToken({id:user.id})
+            res.json({user , accessToken})
+        })
+        }catch(err){
+            res.status(500).json({msg:err.message})
+        }
+        
+    },
     // Login a user
     login: async (req, res) => {
         try {
@@ -72,6 +92,7 @@ const UserCtrl = {
     },
 
     // Get user details
+    //dekhna hai 
     getUserDetails: async (req, res) => {
         try {
             const user = await Users.findById(req.user.id).select('-password'); // Exclude the password field
@@ -95,3 +116,4 @@ const createRefreshToken = (payload) => {
 };
 
 module.exports = UserCtrl;
+
