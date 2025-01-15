@@ -95,7 +95,14 @@ const UserCtrl = {
             return res.status(500).json({ msg: err.message });
         }
     },
-
+    logout: async(req , res)=>{
+        try{
+            res.clearCookie('refreshToken' , {path:'/'})
+            return res.json({msg:"Log Out"});
+        }catch(err){
+            return res.status(500).json({msg:err.message})
+        }
+    },
     // Get user details
     //dekhna hai 
     getUserDetails: async (req, res) => {
