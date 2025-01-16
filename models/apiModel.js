@@ -18,15 +18,8 @@ const apiSchema = new mongoose.Schema({
         trim: true,
     },
     pricing: {
-        free: {
-            type: Boolean,
-            default: false,
-        },
-        paid: {
-            basic: { type: String, default: null },
-            pro: { type: String, default: null },
-            enterprise: { type: String, default: null },
-        },
+        free: { type: String, required: true },  // Change to String
+        paid: { type: String, required: true },  // Change to String
     },
     endpoints: [
         {
