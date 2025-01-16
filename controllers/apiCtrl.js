@@ -4,24 +4,19 @@ const ApiController = {
     // Create a new API
     createApi: async (req, res) => {
         try {
-            const { name, description, category, pricing, endpoints, documentationLink } = req.body;
-            console.log("api")
-            // Validate required fields
-            if (!name || !category || !documentationLink) {
-                return res.status(400).json({ msg: 'Required fields are missing' });
+            console.log('req.user:', req.user);
+                console.log('req.body:', req.body);
+            const { name } = req.body;
+    
+            // Check if the API already exists
+            const existingApi = await Api.findOne({ name });
+            if (existingApi) {
+                return res.status(400).json({ msg: 'API already exists' });
             }
-
-            const newApi = new Api({
-                name,
-                description,
-                category,
-                pricing,
-                endpoints,
-                documentationLink,
-                createdBy: req.user.id,
-            });
-            console.log("api is saved")
+    
+            const newApi = new Api(req.body);
             await newApi.save();
+    
             res.status(201).json({ msg: 'API created successfully', newApi });
         } catch (err) {
             res.status(500).json({ msg: err.message });
