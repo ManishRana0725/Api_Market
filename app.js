@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Routes
 app.use("/", homeRoutes); // Home page routes
-app.use("/api_market", apiListingsRoutes); // API listings routes
+app.use("/api_market/api", apiListingsRoutes); // API listings routes
 app.use("/api_market/users" , userRouter); // API user routes
 // Start the Server
 const port = process.env.PORT || 8080;
