@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 require('dotenv').config();
 
 // Routes
-const apiListingsRoutes = require('./routes/apiListings'); // API listings routes
+const apiListingsRoutes = require('./routes/apiRoutes'); // API listings routes
 const homeRoutes = require('./routes/home'); // Home page routes
 const userRouter = require('./routes/userRoutes');
 
@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Routes
 app.use("/", homeRoutes); // Home page routes
-app.use("/apiListings", apiListingsRoutes); // API listings routes
+app.use("/api_market", apiListingsRoutes); // API listings routes
 app.use("/api_market/users" , userRouter); // API user routes
 // Start the Server
 const port = process.env.PORT || 8080;
