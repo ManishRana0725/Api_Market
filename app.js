@@ -11,7 +11,7 @@ require('dotenv').config();
 const apiListingsRoutes = require('./routes/apiRoutes'); // API listings routes
 const homeRoutes = require('./routes/home'); // Home page routes
 const userRouter = require('./routes/userRoutes');
-
+const submissionRoutes = require('./routes/submissionRoutes');
 // Database Connection
 mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/api_market', {
    
@@ -32,6 +32,7 @@ app.use(cookieParser());
 app.use("/", homeRoutes); // Home page routes
 app.use("/api_market/api", apiListingsRoutes); // API listings routes
 app.use("/api_market/users" , userRouter); // API user routes
+app.use("/api_market/submission" , submissionRoutes); // API submission routes
 // Start the Server
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
