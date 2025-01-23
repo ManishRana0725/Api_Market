@@ -13,6 +13,7 @@ const homeRoutes = require('./routes/home'); // Home page routes
 const userRouter = require('./routes/userRoutes');
 const submissionRoutes = require('./routes/submissionRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 // Database Connection
 mongoose.connect(process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/api_market', {
    
@@ -31,14 +32,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Routes
 app.use("/", homeRoutes); // Home page routes
-app.use("/api_market/api", apiListingsRoutes); // API listings routes
+app.use("/api_market/category", apiListingsRoutes ); // API listings routes
 app.use("/api_market/users" , userRouter); // API user routes
 app.use("/api_market/submission" , submissionRoutes); // API submission routes
 app.use("/api_market" , reviewRoutes); // API Review routes
+app.use("/api_market/category" , categoryRoutes);
 // Start the Server
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
-
-
